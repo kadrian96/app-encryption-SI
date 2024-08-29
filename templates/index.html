@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado de Archivos y Texto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function clearFields() {
+            document.getElementById('fileInput').value = '';
+            document.getElementById('password1').value = '';
+            document.getElementById('text').value = '';
+            document.getElementById('password2').value = '';
+            document.getElementById('encrypted-text').textContent = '';
+            document.getElementById('decrypted-text').textContent = '';
+        }
+
+        function removeFile() {
+            document.getElementById('fileInput').value = '';
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            event.target.submit();
+            clearFields();
+        }
+
+        function showAlert(message) {
+            if (message) {
+                alert(message);
+            }
+        }
+
+         // Clear fields on page load
+         window.onload = function() {
+            clearFields();
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="column left">
+            <h1>Cifrado Simétrico</h1>
+
+            <!-- Formulario para archivos -->
+            <form action="/" method="post" enctype="multipart/form-data">
+                <div class="file-input-wrapper">
+                    <input type="file" name="file" id="fileInput" />
+                    <button type="button" class="remove-file-button" onclick="removeFile()">&#10006;</button> <!-- X icon -->
+                </div>
+                <div id="drop-area">
+                    <p>Arrastra y suelta un archivo aquí</p>
+                </div><br>
+                <input type="password" name="password" id="password1" placeholder="Contraseña" required />
+                <div class="form-buttons">
+                    <button type="submit" name="action" value="encrypt">Cifrar Archivo</button>
+                    <button type="submit" name="action" value="decrypt">Descifrar Archivo</button>
+                </div>
+            </form>
+
+            <!-- Formulario para texto -->
+            <form action="/" method="post" >
+                <textarea name="text" id="text" placeholder="Escribe tu texto aquí..." required></textarea>
+                <input type="password" name="password" id="password2" placeholder="Contraseña" required />
+                <div class="form-buttons">
+                    <button type="submit" name="action" value="encrypt">Cifrar Texto</button>
+                    <button type="submit" name="action" value="decrypt">Descifrar Texto</button>
+                </div>
+            </form>
+
+            <!-- Mostrar texto cifrado/descifrado -->
+            {% if encrypted_text %}
+                <h4>Texto Cifrado:</h4>
+                <p>{{ encrypted_text }}</p>
+            {% endif %}
+            {% if decrypted_text %}
+                <h4>Texto Descifrado:</h4>
+                <p>{{ decrypted_text }}</p>
+            {% endif %}
+
+            
+        </div>
+        
+        <div class="column right">
+            <h1>Cifrado Asimétrico</h1>
+
+             <!-- Formulario para generar claves RSA -->
+             <form action="/" method="post">
+                <textarea type="text" name="passphrase" placeholder="Introduce una frase para cifrar" required ></textarea>
+                <button type="submit" name="generate-keys" value="true">Generar Claves RSA</button>
+            </form>
+
+              
+        </div>
+    </div>
+
+    <script>
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('fileInput');
+
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropArea.classList.add('dragging');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('dragging');
+        });
+
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropArea.classList.remove('dragging');
+            const files = event.dataTransfer.files;
+            fileInput.files = files;
+        });
+
+        showAlert("{{ error_message if error_message else '' }}");
+    </script>
+</body>
+</html>

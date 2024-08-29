@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    gap: 20px; /* Añadido espacio entre las columnas */
+}
+
+.column {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.column.left {
+    background-color: #ffffff;
+    border-right: 2px solid #ccc;
+}
+
+.column.right {
+    background-color: #e9ecef;
+}
+
+h1 {
+    margin-top: 0;
+    color: #333;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+.file-input-wrapper {
+    display: flex;
+    align-items: center;
+    /*gap: 5px; /* Espacio entre el input y el botón de eliminar */
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    flex: 1;
+}
+
+.remove-file-button {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+    cursor: pointer;
+    font-size: 18px; /* Tamaño de la X */
+    color: #ff0000; /* Color de la X */
+    transition: background-color 0.3s ease;
+}
+
+.remove-file-button:hover {
+    background-color: #ffe6e6;
+}
+
+input[type="password"],
+textarea {
+    width: calc(100% - 20px); /* Ajuste para padding horizontal */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 100px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#drop-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
+#drop-area.dragging {
+    background-color: #e1e1e1;
+}
+
+#drop-area p {
+    margin: 0;
+    color: #666;
+}
